@@ -1,255 +1,376 @@
 "use client";
 
-import { Mail, Linkedin, Github, FileText } from "lucide-react";
-
-// bring in React hooks and the AOS animation library
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-const experiences = [
-  {
-    title: "Technical Program Manager | Security Engineer",
-    company: "Holiday World, CO, USA",
-    period: "Mar 2025 – Present",
-    points: [
-      "Building Holiday Channel’s security program from the ground up—developing ISO/NIST‑aligned policies, enforcing RBAC, and leading DevSecOps using GitHub Actions, Docker, and Terraform across Node.js/MongoDB microservices, reducing exploit risk by 40%.",
-      "Managing AI, SEO, and DevOps onboarding across three product lines while overseeing secure releases on Cloudflare, Render & AWS with token lifecycle controls.",
-      "Performing penetration testing with Burp Suite and Nmap, and driving GDPR/CCPA compliance using Cookiebot, asset monitoring, and sandboxing."
-    ]
-  },
-  {
-    title: "AI Security Intern",
-    company: "Zummit Africa, Delaware, USA",
-    period: "Jun 2024 – Aug 2024",
-    points: [
-      "Performed end‑to‑end testing on Zummit’s GenAI‑integrated web platform—identified 10+ critical flaws including SQL injection and access control bypass, cutting risk exposure by 35%.",
-      "Tuned SIEM rules in Wazuh for false positive reduction and researched AI product architecture; designed IAM and data control strategies to secure GenAI usage in production."
-    ]
-  },
-  {
-    title: "Senior Systems Engineer",
-    company: "Cisco, Bengaluru",
-    period: "Mar 2021 – Jul 2023",
-    points: [
-      "Secured Cisco’s Order Processing microservices (Java SpringBoot) handling 100K+ subscriptions/month by integrating SonarQube into Jenkins pipelines via Bitbucket, reducing production vulnerabilities by 25%.",
-      "Conducted unit and fuzz testing to harden code across Duo’s secure SDLC and built IAM policies on Azure AD with OAuth, SAML, and Zero Trust models.",
-      "Optimized CI/CD pipeline security using Terraform, Ansible, and PowerShell, reducing misconfigurations by 40%. Delivered monthly bug‑fix reports using PowerBI tracking critical vs. low‑priority issues."
-    ]
-  }
-];
-
-const projects = [
-  {
-    name: "PhishGuard",
-    description:
-      "Enhanced phishing detection rates by 40% through the implementation of honeypots and adaptive filtering algorithms, incorporating real‑time monitoring with Splunk for actionable threat analysis; contributed to the development of incident response playbooks to standardize mitigation processes."
-  },
-  {
-    name: "Cloud Security Compliance Automation",
-    description:
-      "Developed Infrastructure as Code scripts using Terraform to automate cloud security policy enforcement, ensuring continuous compliance with NIST 800‑53."
-  }
-];
-
-const skills = [
-  "Python",
-  "Java",
-  "SQL",
-  "Splunk, Datadog & Wazuh",
-  "IAM & Active Directory",
-  "Cloud Security",
-  "Firewall & Networking (TCP/IP, DNS, VPN, SSL/TLS)",
-  "Encryption",
-  "PowerShell & Python Scripting",
-  "Virtualization & Containers",
-  "Penetration Testing",
-  "Terraform & Ansible",
-  "Threat Hunting (OSINT, MITRE ATT&CK)",
-  "Data Analysis & Log Parsing"
-];
-
-export default function Page() {
-  // state for dark mode toggle
-  const [isDark, setIsDark] = useState(false);
-
-  // initialize AOS animations once on mount
+/**
+ * Homepage for the cybersecurity TPM portfolio.
+ *
+ * This page includes a full set of sections—including a hero,
+ * about section, skills grid, career timeline, projects, certifications,
+ * testimonials, FAQ, and contact—along with subtle scroll animations via AOS.
+ *
+ * It serves as the main landing page for the portfolio and exports
+ * a React component as the default export. The component initializes AOS
+ * during mount to activate animations on scroll.
+ */
+export default function Home() {
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
 
   return (
-    <div
-      className={`${
-        isDark
-          ? "bg-gray-900 text-white"
-          : "bg-gradient-to-br from-white via-blue-50 to-indigo-100 text-gray-800"
-      } min-h-screen font-inter scroll-smooth transition-colors duration-500`}
-    >
-      {/* Dark/Light toggle */}
-      <div className="fixed top-4 right-4 z-50">
-        <button
-          onClick={() => setIsDark(!isDark)}
-          className="bg-gray-200 hover:bg-gray-300 text-sm px-4 py-2 rounded-full shadow"
+    <div className="bg-gradient-to-br from-white via-blue-50 to-indigo-100 text-gray-800 min-h-screen font-inter scroll-smooth">
+      {/* Header navigation */}
+      <header className="sticky top-0 z-50 bg-white shadow-md px-8 py-4 flex justify-between items-center">
+        <h1 className="text-2xl font-bold text-blue-700">Aayush Pandey</h1>
+        <nav className="space-x-6 text-sm font-medium">
+          <a href="#about" className="hover:text-indigo-600">
+            About
+          </a>
+          <a href="#skills" className="hover:text-indigo-600">
+            Skills
+          </a>
+          <a href="#experience" className="hover:text-indigo-600">
+            Experience
+          </a>
+          <a href="#projects" className="hover:text-indigo-600">
+            Projects
+          </a>
+          <a href="#certifications" className="hover:text-indigo-600">
+            Certifications
+          </a>
+          <a href="#testimonials" className="hover:text-indigo-600">
+            Praise
+          </a>
+          <a href="#faq" className="hover:text-indigo-600">
+            FAQ
+          </a>
+          <a href="#contact" className="hover:text-indigo-600">
+            Contact
+          </a>
+        </nav>
+      </header>
+
+      {/* Hero section */}
+      <section
+        className="text-center py-24 px-6 bg-gradient-to-tr from-indigo-100 to-white"
+        data-aos="fade-up"
+      >
+        <img
+          src="/images/headshot-placeholder.png"
+          alt="Aayush Pandey"
+          className="mx-auto w-40 h-40 rounded-full shadow-xl border-4 border-indigo-400 mb-6"
+        />
+        <h2 className="text-4xl md:text-5xl font-extrabold text-blue-900 mb-4">
+          Cybersecurity TPM &amp; AI Strategist
+        </h2>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          Bridging DevSecOps, AI security, SEO automation, and data governance
+          to secure and scale digital systems.
+        </p>
+        <a
+          href="/files/AayushPandey_Resume.pdf"
+          className="mt-6 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-semibold"
+          download
         >
-          {isDark ? "☀ Light" : "🌙 Dark"}
-        </button>
-      </div>
-      <main className="max-w-3xl mx-auto py-16 px-4 space-y-12">
-        <header className="space-y-4 text-center">
-          <h1 className="text-4xl font-bold">Aayush Pandey</h1>
-          <p className="text-gray-600 dark:text-gray-300">
-            Cybersecurity Engineer &amp; Program Manager
-          </p>
-          <p className="text-lg leading-relaxed">
-            Cybersecurity engineer with hands‑on experience securing
-            microservices in Cisco’s enterprise systems—reduced production
-            vulnerabilities by 25% via SDLC hardening, IAM design, and CI/CD
-            controls. Specialized in cloud and on‑prem security, red/blue team
-            synergy, and ISO/NIST‑aligned compliance. Proven ability to
-            translate technical risk into action, automate enforcement, and
-            drive measurable improvements across high‑scale infrastructures.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 mt-4">
-            <a
-              href="mailto:aayushcybersec@gmail.com"
-              className="flex items-center gap-1 underline underline-offset-4"
-            >
-              <Mail className="w-4 h-4" /> Email
-            </a>
-            <a
-              href="#"
-              className="flex items-center gap-1 underline underline-offset-4"
-            >
-              <Linkedin className="w-4 h-4" /> LinkedIn
-            </a>
-            <a
-              href="#"
-              className="flex items-center gap-1 underline underline-offset-4"
-            >
-              <Github className="w-4 h-4" /> GitHub
-            </a>
-            <a
-              href="#"
-              className="flex items-center gap-1 underline underline-offset-4"
-            >
-              <FileText className="w-4 h-4" /> Resume
-            </a>
-          </div>
-        </header>
+          Download Resume
+        </a>
+      </section>
 
-        {/* Experience section */}
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Experience</h2>
-          <div className="space-y-8">
-            {experiences.map((exp, idx) => (
-              <div key={idx}>
-                <h3 className="text-xl font-semibold">
-                  {exp.title} — <span className="font-normal">{exp.company}</span>
-                </h3>
-                <p className="text-gray-500 dark:text-gray-400 text-sm italic">
-                  {exp.period}
-                </p>
-                <ul className="list-disc list-inside mt-2 space-y-1 text-base leading-relaxed">
-                  {exp.points.map((point, i) => (
-                    <li key={i}>{point}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
+      {/* About Me */}
+      <section
+        id="about"
+        className="px-6 py-16 max-w-5xl mx-auto text-center"
+        data-aos="fade-up"
+      >
+        <h3 className="text-3xl font-bold text-indigo-700 mb-6">About Me</h3>
+        <p className="text-md text-gray-700 leading-relaxed">
+          From tech sales at WhiteHat Jr to securing enterprise systems at Cisco
+          and leading cross-functional cybersecurity, DevOps, and AI teams at
+          Holiday Channel — my journey reflects depth, grit, and strategy. As a
+          TPM and cybersecurity analyst, I build secure CI/CD, lead product
+          development (like Recipe Scalar), and implement compliance using
+          ISO/NIST/PCI. I believe in leadership through action, secure-by-design
+          thinking, and continuous innovation.
+        </p>
+      </section>
 
-        {/* Projects section */}
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Projects</h2>
-          <div className="space-y-6">
-            {projects.map((proj, idx) => (
-              <div key={idx}>
-                <h3 className="text-lg font-semibold">{proj.name}</h3>
-                <p className="leading-relaxed">{proj.description}</p>
-              </div>
-            ))}
+      {/* Skills */}
+      <section
+        id="skills"
+        className="px-6 py-16 max-w-6xl mx-auto"
+        data-aos="fade-up"
+      >
+        <h3 className="text-3xl font-bold text-indigo-700 mb-10">
+          Skills &amp; Tools
+        </h3>
+        <div className="grid md:grid-cols-3 gap-6 text-sm text-gray-700">
+          <div className="bg-white p-4 rounded-xl shadow-md">
+            Cloud Security: AWS, Cloudflare, Render
           </div>
-        </section>
+          <div className="bg-white p-4 rounded-xl shadow-md">
+            Infrastructure as Code: Terraform, GitHub Actions
+          </div>
+          <div className="bg-white p-4 rounded-xl shadow-md">
+            SIEM + Monitoring: Splunk, Wazuh
+          </div>
+          <div className="bg-white p-4 rounded-xl shadow-md">
+            Secure DevOps: SonarQube, RBAC, CI/CD automation
+          </div>
+          <div className="bg-white p-4 rounded-xl shadow-md">
+            AI Security: OpenAI agents, NLP pipelines, prompt security
+          </div>
+          <div className="bg-white p-4 rounded-xl shadow-md">
+            Data Engineering: Spark, ETL, KPI dashboards
+          </div>
+          <div className="bg-white p-4 rounded-xl shadow-md">
+            Frontend SEO Automation: Schema, sitemap, indexing APIs
+          </div>
+          <div className="bg-white p-4 rounded-xl shadow-md">
+            Soft Skills: Strategic planning, team mentoring, agile TPM
+          </div>
+        </div>
+      </section>
 
-        {/* Skills */}
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Skills</h2>
-          <ul className="flex flex-wrap gap-2">
-            {skills.map((skill, idx) => (
-              <li
-                key={idx}
-                className="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded text-sm"
-              >
-                {skill}
+      {/* Experience */}
+      <section
+        id="experience"
+        className="px-6 py-16 bg-white max-w-6xl mx-auto"
+        data-aos="fade-up"
+      >
+        <h3 className="text-3xl font-bold text-indigo-700 mb-10">
+          Career Timeline
+        </h3>
+        <div className="space-y-10 border-l-4 border-indigo-300 pl-6">
+          <div>
+            <h4 className="text-xl font-semibold">
+              Holiday Channel – Cybersecurity TPM
+            </h4>
+            <p className="text-sm text-gray-500">2025 – Present | USA</p>
+            <ul className="list-disc text-gray-700 mt-2 pl-5 space-y-1">
+              <li>
+                Reduced security bug resolution time by 20% through SonarQube +
+                CI automation
               </li>
-            ))}
-          </ul>
-        </section>
-      </main>
-
-      {/* Metrics Section */}
-      <section className="px-6 py-16 max-w-6xl mx-auto" id="metrics" data-aos="fade-up">
-        <h3 className="text-3xl font-bold text-indigo-700 dark:text-indigo-300 mb-10 text-center">
-          Impact in Numbers
-        </h3>
-        <div className="grid md:grid-cols-3 gap-6 text-center">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
-            <p className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">30+</p>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">Engineers Managed</p>
+              <li>
+                Implemented ISMS policies, RBAC, GDPR Cookiebot, and token
+                lifecycle controls
+              </li>
+              <li>
+                Led 30+ engineers across AI, Cyber, SEO, and DevOps workflows
+              </li>
+              <li>
+                Built NLP agents for holiday recipe recommendation + vendor gift
+                suggestion
+              </li>
+              <li>
+                Automated SEO sitemaps, schema tagging, and GA4 via AWS Lambda
+              </li>
+              <li>
+                Conducted monthly pentests, hardened authentication, audited PCI
+                DSS data flows
+              </li>
+            </ul>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
-            <p className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">10+</p>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">Critical Vulns Resolved</p>
-          </div>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
-            <p className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">20%</p>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">Faster Resolution Time</p>
-          </div>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
-            <p className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">3</p>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">Product Lines Secured</p>
-          </div>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
-            <p className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">2</p>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">Security Tools Built</p>
-          </div>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
-            <p className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">100%</p>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">Secure-by-Design Implementation</p>
-          </div>
-        </div>
-      </section>
-
-      {/* AI Security Cards */}
-      <section className="px-6 py-16 max-w-6xl mx-auto" id="aicards" data-aos="fade-up">
-        <h3 className="text-3xl font-bold text-indigo-700 dark:text-indigo-300 mb-10 text-center">
-          AI &amp; Security Highlights
-        </h3>
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
-            <h4 className="font-semibold text-indigo-600 dark:text-indigo-400 mb-2">OpenAI Wrappers</h4>
-            <p className="text-gray-700 dark:text-gray-300 text-sm">
-              Built secure NLP-based agents for holiday recommendations using OpenAI with data filtering + tagging logic.
+          <div>
+            <h4 className="text-xl font-semibold">
+              Zummit Africa – AI Security Intern
+            </h4>
+            <p className="text-sm text-gray-500">2024 | Delaware, USA</p>
+            <p className="text-gray-700 mt-2">
+              Found 10+ critical vulnerabilities in GenAI platform; developed IAM
+              model &amp; secure ML pipeline design.
             </p>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
-            <h4 className="font-semibold text-indigo-600 dark:text-indigo-400 mb-2">Prompt Injection Hardening</h4>
-            <p className="text-gray-700 dark:text-gray-300 text-sm">
-              Tested &amp; mitigated prompt injection vectors in generative AI systems used for recommendations &amp; chatbot flows.
+          <div>
+            <h4 className="text-xl font-semibold">
+              Cisco @ Infosys – Sr. Systems Engineer
+            </h4>
+            <p className="text-sm text-gray-500">2021 – 2023 | India</p>
+            <p className="text-gray-700 mt-2">
+              Reduced subscription infra vulnerabilities by 25% via SonarQube +
+              Jenkins; implemented secure IAM in Azure AD.
             </p>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
-            <h4 className="font-semibold text-indigo-600 dark:text-indigo-400 mb-2">Recipe Scalar AI</h4>
-            <p className="text-gray-700 dark:text-gray-300 text-sm">
-              Created structured recipe recommendation agent with Spark-cleaned data and secure pipeline to OpenAI APIs.
+          <div>
+            <h4 className="text-xl font-semibold">WhiteHat Jr – Sales Manager</h4>
+            <p className="text-sm text-gray-500">2020 | India</p>
+            <p className="text-gray-700 mt-2">
+              Started in tech sales; later pivoted to cybersecurity and enterprise
+              tech.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Projects */}
+      <section
+        id="projects"
+        className="px-6 py-16 max-w-6xl mx-auto"
+        data-aos="fade-up"
+      >
+        <h3 className="text-3xl font-bold text-indigo-700 mb-10">
+          Highlighted Projects
+        </h3>
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="bg-white shadow-lg rounded-xl p-6 border-t-4 border-indigo-500">
+            <h4 className="text-lg font-semibold">
+              PhishGuard – AI Phishing Detection
+            </h4>
+            <p className="text-sm text-gray-700 mt-2">
+              Honeypot + heuristics + Splunk-based phishing scanner with
+              automated threat response playbooks.
+            </p>
+            <a
+              href="https://github.com/LuciferAsh98/CybersecurityProjects/tree/main/Tools/AutomationScripts/PhishGaurd%20-%20Phishing%20Scanner"
+              className="text-indigo-600 text-sm mt-2 inline-block"
+            >
+              View on GitHub
+            </a>
+          </div>
+          <div className="bg-white shadow-lg rounded-xl p-6 border-t-4 border-blue-400">
+            <h4 className="text-lg font-semibold">Recipe Scalar – Holiday AI Agent</h4>
+            <p className="text-sm text-gray-700 mt-2">
+              NLP-based holiday recommender using Spark + OpenAI, auto-tagging
+              via AWS scripts, and secure recipe flow compliance.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Certifications */}
+      <section
+        id="certifications"
+        className="px-6 py-16 bg-indigo-50 max-w-6xl mx-auto"
+        data-aos="fade-up"
+      >
+        <h3 className="text-3xl font-bold text-indigo-700 mb-8">
+          Certifications
+        </h3>
+        <ul className="grid md:grid-cols-2 gap-4 text-sm text-indigo-700">
+          <li>
+            <a
+              href="http://verify.comptia.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              CompTIA Security+
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://coursera.org/verify/professional-cert/M2ADKQPH2K9C"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              AWS Cloud Practitioner
+            </a>
+          </li>
+          <li>CompTIA CySA+ (Ongoing)</li>
+          <li>IBM &amp; Google Cybersecurity, GenAI for Security</li>
+        </ul>
+      </section>
+
+      {/* Testimonials */}
+      <section
+        id="testimonials"
+        className="px-6 py-16 max-w-6xl mx-auto"
+        data-aos="fade-up"
+      >
+        <h3 className="text-3xl font-bold text-indigo-700 mb-8">
+          Praise &amp; Testimonials
+        </h3>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            <p className="text-gray-700 italic">
+              “Aayush turned our security chaos into a clean, policy-driven, scalable
+              DevSecOps framework. Absolutely dependable.”
+            </p>
+            <p className="mt-2 text-sm font-semibold text-indigo-700">
+              — Reesa B., CEO, Holiday Channel
+            </p>
+          </div>
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            <p className="text-gray-700 italic">
+              “He owns the stack — from IAM to SEO schema to AI. You rarely find a
+              TPM who builds and secures at the same time.”
+            </p>
+            <p className="mt-2 text-sm font-semibold text-indigo-700">
+              — Krishna V., CTO
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section
+        id="faq"
+        className="px-6 py-16 max-w-5xl mx-auto"
+        data-aos="fade-up"
+      >
+        <h3 className="text-3xl font-bold text-indigo-700 mb-6">
+          Quick FAQ
+        </h3>
+        <div className="space-y-6 text-gray-700">
+          <div>
+            <h4 className="text-lg font-semibold">
+              🔐 Do you specialize in compliance?
+            </h4>
+            <p>
+              Yes — ISO 27001, NIST CSF, PCI DSS, GDPR, and full ISMS setup are
+              part of my Holiday Channel portfolio.
+            </p>
+          </div>
+          <div>
+            <h4 className="text-lg font-semibold">🧠 Can you lead technical teams?</h4>
+            <p>
+              I currently lead 30+ engineers across Cyber, SEO, AI, and DevOps —
+              while owning the TPM roadmap.
+            </p>
+          </div>
+          <div>
+            <h4 className="text-lg font-semibold">🧰 Do you write code?</h4>
+            <p>
+              From scraping pipelines and NLP flows to Terraform security policy
+              enforcement — 100% hands-on.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section
+        id="contact"
+        className="px-6 py-20 text-center"
+        data-aos="fade-up"
+      >
+        <h3 className="text-3xl font-bold text-indigo-700 mb-4">
+          Hire Me / Collaborate
+        </h3>
+        <p className="text-gray-600 mb-8">
+          For freelance cybersecurity consulting, penetration testing, TPM
+          advisory, or full-time opportunities.
+        </p>
+        <a
+          href="mailto:aayushcybersec@gmail.com"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-semibold"
+        >
+          Email Me
+        </a>
+        <div className="mt-4">
+          <a
+            href="https://calendly.com/aayushcybersec/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline text-indigo-600"
+          >
+            Book a Call
+          </a>
+        </div>
+      </section>
+
       <footer className="text-center py-8 text-sm text-gray-500 border-t">
         © 2025 Aayush Pandey • Secure. Scale. Succeed. • Built with ☕ and 💡
       </footer>
